@@ -1,5 +1,3 @@
-# DS_Business_Card
-
 # Nintendo DS Business Card — O(n) Sorting Visualization
 
 This project transforms the Nintendo DS (or 3DS via backward compatibility) into an interactive digital business card that demonstrates a smooth, auto-looping **O(n) Counting Sort visualization** on the top screen while displaying a professional business card on the bottom screen.
