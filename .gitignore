@@ -1,0 +1,26 @@
+# Build artifacts
+*.elf
+*.nds
+*.dldi
+*.lst
+*.map
+*.o
+*.d
+*.a
+
+# Build directories
+**/build/
+**/lib/
+
+# Archives
+*.zip
+
+# Generated graphics files (these should be generated from source)
+arm9/build/zaidCard.h
+arm9/build/zaidCard.s
+
+# OS specific files
+*.Zone.Identifier
+
+# Logs
+*.log
