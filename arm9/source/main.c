@@ -75,10 +75,6 @@ int main(void) {
 
     while (1) {
         swiWaitForVBlank();
-        randomizeBars(bars);
-        drawBars(screen, bars);
-        countingSortVisual(screen, bars);
-        for (int i = 0; i < 90; i++) swiWaitForVBlank();
     }
 
     return 0;
