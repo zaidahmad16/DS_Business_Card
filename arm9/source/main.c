@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include "zaidCard.h"   // your converted image header
+#include "zaidCard.h"
 
 #define NUM_BARS 64
 #define SCREEN_W 256
@@ -15,10 +15,8 @@ typedef struct {
 
 Bar bars[NUM_BARS];
 
-// ------------------ DRAWING UTILITIES ------------------
-
 void drawGrid(u16 *buffer) {
-    u16 gridColor = RGB15(3, 3, 3);  // faint gridlines
+    u16 gridColor = RGB15(3, 3, 3);
     for (int y = 0; y < SCREEN_H; y++) {
         for (int x = 0; x < SCREEN_W; x++) {
             if (y % 8 == 0 || x % 8 == 0)
@@ -48,8 +46,6 @@ void randomizeBars(void) {
     }
 }
 
-// ------------------ COUNTING SORT VISUAL ------------------
-
 void countingSortVisual(u16 *buffer) {
     int maxH = 0;
     for (int i = 0; i < NUM_BARS; i++)
@@ -63,7 +59,6 @@ void countingSortVisual(u16 *buffer) {
     for (int i = 0; i <= maxH; i++) {
         while (count[i]-- > 0) {
             bars[idx++].height = i;
-
             swiWaitForVBlank();
             drawGrid(buffer);
             drawBars(buffer);
@@ -73,17 +68,15 @@ void countingSortVisual(u16 *buffer) {
     free(count);
 }
 
-// ------------------ MAIN FUNCTION ------------------
-
 int main(void) {
     srand(time(NULL));
 
-    // --- Top Screen Setup (O(n) Sorting) ---
+    // Top screen: framebuffer mode for pixel-level sort visualization
     videoSetMode(MODE_FB0);
     vramSetBankA(VRAM_A_LCD);
     u16 *topBuffer = (u16*)malloc(SCREEN_W * SCREEN_H * 2);
 
-    // --- Bottom Screen Setup (Business Card Image) ---
+    // Bottom screen: 8bpp paletted BG for business card image
     videoSetModeSub(MODE_5_2D);
     vramSetBankC(VRAM_C_SUB_BG);
 
@@ -91,13 +84,9 @@ int main(void) {
     dmaCopy(zaidCardBitmap, bgGetGfxPtr(bg3), zaidCardBitmapLen);
     dmaCopy(zaidCardPal, BG_PALETTE_SUB, zaidCardPalLen);
 
-    // --- Animation Loop ---
     while (1) {
         randomizeBars();
         countingSortVisual(topBuffer);
         swiWaitForVBlank();
     }
-
-    free(topBuffer);
-    return 0;
 }

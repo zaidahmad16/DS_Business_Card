@@ -7,9 +7,9 @@ $(error "Please set DEVKITARM in your environment. export DEVKITARM=<path to>dev
 endif
 
 # These set the information text in the nds file
-#GAME_TITLE     := My Wonderful Homebrew
-#GAME_SUBTITLE1 := built with devkitARM
-#GAME_SUBTITLE2 := http://devitpro.org
+GAME_TITLE     := DS Business Card
+GAME_SUBTITLE1 := Counting Sort Visualizer
+GAME_SUBTITLE2 := github.com/zaidahmad16
 
 include $(DEVKITARM)/ds_rules
 
@@ -53,7 +53,7 @@ LDFLAGS   = -specs=ds_arm9.specs -g $(ARCH) -Wl,-Map,$(notdir $*.map)
 #---------------------------------------------------------------------------------
 LIBS := -lnds9
 
-# automatigically add libraries for NitroFS
+# automatically add libraries for NitroFS
 ifneq ($(strip $(NITRO)),)
 LIBS := -lfilesystem -lfat $(LIBS)
 endif
